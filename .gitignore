@@ -3,3 +3,5 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/Core.Test/Resources/Roms/*
+/Console/Resources/*
