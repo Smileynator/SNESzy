@@ -7,7 +7,7 @@ namespace Core.Test;
 public class InitializationTests
 {
     [Fact]
-    public void CanInitializeAllRoms()
+    public void CanParseAllHeaders()
     {
         //Arrange
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
@@ -22,7 +22,7 @@ public class InitializationTests
                 ZipArchiveEntry entry = archive.Entries.Single();
                 byte[] data = GetRomDataFromZipEntry(entry);
                 //Act
-                Exception? exception = Record.Exception(() => new Motherboard(data));
+                Exception? exception = Record.Exception(() => new Cartridge(data));
                 exceptions.Add(Path.GetFileNameWithoutExtension(zipPath), exception);
             }
             catch (Exception ex)
