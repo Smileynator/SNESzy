@@ -24,8 +24,8 @@ public class BusATests
         //Arrange
         BusA busA = new BusA();
         IBusADevice sub = Substitute.For<IBusADevice>();
-        sub.Read(Arg.Any<uint>()).Returns((byte)0xFF);
-        busA.RegisterMemoryRegion(0x00, 0x00, 0x0000, 0x2000, sub);
+        sub.BusARead(Arg.Any<uint>()).Returns((byte)0xFF);
+        busA.RegisterBusRegion(0x00, 0x00, 0x0000, 0x1FFF, sub);
         
         //Act & Assert
         for (uint i = 0; i < 0x2000; i++)
@@ -40,13 +40,13 @@ public class BusATests
         //Arrange
         BusA busA = new BusA();
         IBusADevice sub = Substitute.For<IBusADevice>();
-        sub.Read(Arg.Any<uint>()).Returns((byte)0xFF);
+        sub.BusARead(Arg.Any<uint>()).Returns((byte)0xFF);
         
         byte bankFrom = 0x10;
         byte bankTo = 0x12;
         ushort addressFrom = 0x4000;
-        ushort addressTo = 0x8000;
-        busA.RegisterMemoryRegion(bankFrom, bankTo, addressFrom, addressTo, sub);
+        ushort addressTo = 0x7FFF;
+        busA.RegisterBusRegion(bankFrom, bankTo, addressFrom, addressTo, sub);
         
         for (uint i = 0; i < 0x1000000; i++)
         {
@@ -58,7 +58,7 @@ public class BusATests
             //Act
             Exception? exception = Record.Exception(() => busA.Read(i));
             //Assert
-            if (bank >= bankFrom && bank <= bankTo && address >= addressFrom && address < addressTo)
+            if (bank >= bankFrom && bank <= bankTo && address >= addressFrom && address <= addressTo)
             {
                 //valid read area
                 exception.ShouldBeNull($"Should be able to read at 0x{i.ToString("X6")} but could not.");

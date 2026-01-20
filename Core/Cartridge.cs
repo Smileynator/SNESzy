@@ -1,6 +1,6 @@
 namespace Core;
 
-public class Cartridge
+public class Cartridge : IBusADevice
 {
     private readonly CartridgeHeader header;
     
@@ -31,5 +31,15 @@ public class Cartridge
             exceptions.Add(ex);
             return null;
         }
+    }
+
+    public void BusAWrite(uint address, byte data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public byte BusARead(uint address)
+    {
+        throw new NotImplementedException();
     }
 }

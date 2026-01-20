@@ -17,7 +17,7 @@ public class CPU
         this.busWrite = busWrite;
 
         //read native mode reset vector
-        PC = (ushort)(busRead.Read(0x00FFFC) << 8 | busRead.Read(0x00FFFD));
+        //PC = (ushort)(busRead.Read(0x00FFFC) << 8 | busRead.Read(0x00FFFD));
     }
 
     public void Tick()
