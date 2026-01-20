@@ -68,10 +68,10 @@ public class WorkRamTest
             ram.BusAWrite((uint) b | 0x1000, (byte) (bank+2));
             ram.BusAWrite((uint) b | 0x1111, (byte) (bank+3));
             //Assert
-            ram.BusARead((uint) b | 0x0000).ShouldBe( bank);
-            ram.BusARead((uint) b | 0x1FFF).ShouldBe( (byte) (bank+1));
-            ram.BusARead((uint) b | 0x1000).ShouldBe( (byte) (bank+2));
-            ram.BusARead((uint) b | 0x1111).ShouldBe( (byte) (bank+3));
+            ram.BusARead(0x7E0000).ShouldBe( bank);
+            ram.BusARead(0x7E1FFF).ShouldBe( (byte) (bank+1));
+            ram.BusARead(0x7E1000).ShouldBe( (byte) (bank+2));
+            ram.BusARead(0x7E1111).ShouldBe( (byte) (bank+3));
         }
         for (byte bank = 0x80; bank < 0xC0; bank++)
         {
@@ -82,10 +82,10 @@ public class WorkRamTest
             ram.BusAWrite((uint) b | 0x1000, (byte) (bank+2));
             ram.BusAWrite((uint) b | 0x1111, (byte) (bank+3));
             //Assert
-            ram.BusARead((uint) b | 0x0000).ShouldBe( bank);
-            ram.BusARead((uint) b | 0x1FFF).ShouldBe( (byte) (bank+1));
-            ram.BusARead((uint) b | 0x1000).ShouldBe( (byte) (bank+2));
-            ram.BusARead((uint) b | 0x1111).ShouldBe( (byte) (bank+3));
+            ram.BusARead(0x7E0000).ShouldBe( bank);
+            ram.BusARead(0x7E1FFF).ShouldBe( (byte) (bank+1));
+            ram.BusARead(0x7E1000).ShouldBe( (byte) (bank+2));
+            ram.BusARead(0x7E1111).ShouldBe( (byte) (bank+3));
         }
     }
     
