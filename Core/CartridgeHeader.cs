@@ -10,7 +10,7 @@ internal class CartridgeHeader
     public Capabilities Capabilities { get; }
     public Coprocessor Coprocessor { get; }
     public int RomSizeBytes { get; }
-    public int RamSizeBytes { get; }
+    public int SaveRamSizeBytes { get; }
     public AreaCode AreaCode { get; }
     public byte DeveloperId { get; }
     public byte Revision { get; }
@@ -48,7 +48,7 @@ internal class CartridgeHeader
         //8 roms, of which at least 4 legit ones seem to fail this check.
         //if(RomMap != expectedMap)
         //    throw new ArgumentOutOfRangeException(nameof(headerData), $"Rom Map actual {expectedMap} does not match header location {RomMap} - {romMap.ToString("X2")}.");
-        RomSpeed = (Speed)(headerData[21] & 0b0001_0000);
+        RomSpeed = (Speed)(headerData[21] & 0b0001_0000 >> 4);
         
         Capabilities = (Capabilities)(headerData[22] & 0b0000_1111);
         if(!Enum.IsDefined(Capabilities))
@@ -60,7 +60,7 @@ internal class CartridgeHeader
             throw new ArgumentOutOfRangeException(nameof(headerData), $"Coprocessor value is invalid {Coprocessor}.");
 
         RomSizeBytes = (1 << headerData[23]) * 1024;
-        RamSizeBytes = (1 << headerData[24]) * 1024;
+        SaveRamSizeBytes = (1 << headerData[24]) * 1024;
         
         AreaCode = (AreaCode) headerData[25];
         if(!Enum.IsDefined(AreaCode))

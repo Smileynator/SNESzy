@@ -18,6 +18,8 @@ public class Motherboard
         placeholder = new IOPlaceholder();
         
         MapBusRegions();
+        
+        cpu.Initialize();
 
         for (int i = 0; i < 100; i++)
         {
