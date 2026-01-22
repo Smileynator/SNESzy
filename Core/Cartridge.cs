@@ -55,7 +55,7 @@ public class Cartridge : IBusADevice
                 if ((address & 0x3FFFFF) > header.RomSizeBytes)
                     return 0; //open bus i guess
                 if (address > 0xC00000) //straight map
-                    return romData[address & 0xFFFF];
+                    return romData[address & 0x3FFFFF];
                 if ((address & 0x408000) == 0x8000) //upper half and "lower" banks, upper half mapped
                     return romData[address & 0xFFFF];
                 return 0; //open bus i guess
